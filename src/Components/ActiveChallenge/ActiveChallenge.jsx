@@ -48,7 +48,7 @@ const ActiveChallenge = () => {
                   </p>
                   <p className="text-gray-800 font-extrabol">
                     {" "}
-                    <span className="font-bold">category :</span>{" "}
+                    <span className="font-bold">category :</span>
                     {active.category}
                   </p>
                   <p className="text-gray-800 ">

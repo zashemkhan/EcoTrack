@@ -14,7 +14,8 @@ import Profile from "../Components/Profile/Profile";
 import ForgetPass from "../Components/ForgetPass/ForgetPass";
 import Register from "../Components/Register/Register";
 import Login from "../Components/Login/Login";
-import ProgressDetails from "../Components/ProgressDetails/ProgressDetails";
+import PrivateRoute from "../Contexts/PrivateRoute";
+// import ProgressDetails from "../Components/ProgressDetails/ProgressDetails";
 
 export const router = createBrowserRouter([
   {
@@ -62,8 +63,12 @@ export const router = createBrowserRouter([
         Component: Contact,
       },
       {
-        path: "/challenges/add",
-        element: <CreateChallenge />,
+        path: "/add",
+        element: (
+          <PrivateRoute>
+            <CreateChallenge />
+          </PrivateRoute>
+        ),
       },
       {
         path: "/challenges/:id",
@@ -73,10 +78,10 @@ export const router = createBrowserRouter([
         path: "/UpdateChallenges/:id",
         element: <UpdateChallenge></UpdateChallenge>,
       },
-      {
-        path: "/progressDetails",
-        element: <ProgressDetails></ProgressDetails>,
-      },
+      // {
+      //   path: "/progressDetails",
+      //   element: <ProgressDetails></ProgressDetails>,
+      // },
     ],
   },
   {
