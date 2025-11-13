@@ -1,16 +1,59 @@
-# React + Vite
+# EcoTrack — Sustainable Living Community
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+EcoTrack is a community platform where eco-conscious people discover and join sustainability challenges, share practical eco-tips, browse local green events, and track personal environmental impact. The platform focuses on measurable, community-driven progress toward a greener lifestyle.
 
-Currently, two official plugins are available:
+## Live Site
+[Insert Your Live Client URL Here]
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) (or [oxc](https://oxc.rs) when used in [rolldown-vite](https://vite.dev/guide/rolldown)) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+## Features
+- **Dynamic Challenges:** Browse ongoing challenges with details like category, duration, participants, and impact metrics.
+- **User Progress Tracking:** Join challenges, update progress, and visualize your personal contribution to sustainability.
+- **Community Tips & Events:** Access latest eco-friendly tips and upcoming local events dynamically fetched from the database.
+- **Authentication:** Secure login and registration via Email/Password or Google. Protected routes ensure your data is safe.
+- **Responsive & Modern UI:** Mobile-friendly design with consistent layout, navigation, and interactive elements.
 
-## React Compiler
+## Pages & Routes
+- `/` — Home (public)
+- `/challenges` — Browse all challenges (public)
+- `/challenges/:id` — Challenge detail (public)
+- `/challenges/add` — Add new challenge (protected)
+- `/challenges/join/:id` — Join a challenge (protected)
+- `/my-activities` — User dashboard (protected)
+- `/my-activities/:id` — Detailed progress (protected)
+- `/login` — Login (public)
+- `/register` — Register (public)
+- `/forgot-password` — Forgot Password (public link only)
+- `/*` — 404 Page
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+## Technologies Used
+- **Client:** React, React Router, Firebase Auth, Axios
+- **Server:** Node.js, Express, MongoDB
+- **Hosting:** Netlify / Vercel (client & server)
+- **Notifications:** Styled toast messages (no alert())
+- **UI & Styling:** Responsive layouts, skeleton loaders, consistent cards, modern buttons
 
-## Expanding the ESLint configuration
+## API Endpoints
+- **Challenges**
+  - `GET /api/challenges` — List with filters
+  - `GET /api/challenges/:id` — Challenge details
+  - `POST /api/challenges` — Create challenge
+  - `PATCH /api/challenges/:id` — Update challenge (owner/admin)
+  - `DELETE /api/challenges/:id` — Delete challenge (owner/admin)
+  - `POST /api/challenges/join/:id` — Join challenge (protected)
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+- **UserChallenges**
+  - Track individual user challenge progress with status and timestamps.
+
+- **Tips & Events**
+  - Dynamic retrieval for homepage display.
+
+## Project Highlights
+- Advanced filtering with MongoDB operators (`$in`, `$gte`, `$lte`)
+- Progress tracking per user for each challenge
+- Real-time community statistics (CO₂ saved, plastic reduced, etc.)
+- Responsive and accessible design for all devices
+- Secure environment variables and protected server routes
+
+---
+
+> Built with care for a sustainable future. 🌱
