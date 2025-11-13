@@ -24,15 +24,26 @@ const Header = () => {
 
   const links = (
     <>
-      <NavLink to="/">
+      <NavLink
+        className={({ isActive }) => (isActive ? "border-b" : "text-white")}
+        to="/"
+      >
         <li>Home</li>
       </NavLink>
-      <NavLink to="/challenges">
+      <NavLink
+        className={({ isActive }) =>
+          isActive ? "border-b" : "text-white"
+        }
+        to="/challenges"
+      >
         <li>Challenges</li>
       </NavLink>
       {user && (
         <>
-          <NavLink to="/challenges/add">
+          <NavLink
+            className={({ isActive }) => (isActive ? "border-b" : "text-white")}
+            to="/challenges/add"
+          >
             <li>Create A Challegne</li>
           </NavLink>
         </>

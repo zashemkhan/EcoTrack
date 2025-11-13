@@ -25,13 +25,13 @@ const LiveStatics = () => {
                 <span className="text-2xl"> {s.trees}</span>
               </span>
               <span key={`dup-${index}`} className="mx-10 flex items-center">
-                <span className="text-2xl"> {s.activeUsers}</span>
+                <span className="text-2xl">{s.activeUsers}</span>
               </span>
               <span key={`dup-${index}`} className="mx-10 flex items-center">
-                <span className="text-2xl"> {s.completedChallenges}</span>
+                <span className="text-2xl">{s.completedChallenges}</span>
               </span>
               <span key={`dup-${index}`} className="mx-10 flex items-center">
-                <span className="text-2xl"> {s.events}</span>
+                <span className="text-2xl">{s.events}</span>
               </span>
             </>
           ))}

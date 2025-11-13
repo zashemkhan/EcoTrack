@@ -36,7 +36,7 @@ const ErrorPage = () => {
           </button>
         </div>
         <p className="mt-6 text-sm text-gray-300">
-          If you think this is a mistake, contact support@example.com
+          If you think this is a mistake,contact support@example.com
         </p>
       </div>
     </div>
