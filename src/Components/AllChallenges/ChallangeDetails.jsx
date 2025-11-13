@@ -3,6 +3,7 @@ import { Link, useLocation, useNavigate, useParams } from "react-router";
 import { toast } from "react-toastify";
 import Swal from "sweetalert2";
 import { AuthContext } from "../../Contexts/AuthContext";
+import SketletonDetail from "../Sketleton/SketletonDetail";
 
 const ChallangeDetails = () => {
   const { user, token } = useContext(AuthContext);
@@ -10,6 +11,7 @@ const ChallangeDetails = () => {
   const [details, setDetails] = useState([]);
   const navigate = useNavigate();
   const { id } = useParams();
+  const [loading, setLoading] = useState(true);
 
   const location = useLocation();
   const onDelete = location.state?.onDelete;
@@ -44,6 +46,7 @@ const ChallangeDetails = () => {
         if (joined) {
           setDetails(data);
           console.log(data);
+          setLoading(false);
         }
       })
       .catch((err) => {
@@ -66,6 +69,10 @@ const ChallangeDetails = () => {
   } = details;
 
   const handleDelete = () => {
+    if (!user) {
+      navigate("/login");
+      return;
+    }
     Swal.fire({
       title: "Are you sure?",
       text: "You won't be able to revert this!",
@@ -88,6 +95,7 @@ const ChallangeDetails = () => {
             });
             if (onDelete) onDelete();
             navigate(-1);
+            setLoading(false);
           })
           .catch((err) => {
             console.log(err);
@@ -120,6 +128,7 @@ const ChallangeDetails = () => {
         res.json().then((data) => ({ status: res.status, body: data }))
       )
       .then(({ status, body }) => {
+        setLoading(false);
         if (status === 400) {
           toast.error("You already joined this challenge ");
         } else {
@@ -135,6 +144,10 @@ const ChallangeDetails = () => {
       });
   };
   const handleUpdate = async () => {
+    if (!user) {
+      navigate("/login");
+      return;
+    }
     try {
       const res = await fetch(
         `http://localhost:3000/api/challenges/update/${id}?email=${email}`,
@@ -148,6 +161,7 @@ const ChallangeDetails = () => {
         }
       );
       const data = await res.json();
+      setLoading(false);
       if (res.ok) toast.success("Challenge updated successfully");
       else toast.error(data.message);
     } catch (err) {
@@ -155,7 +169,9 @@ const ChallangeDetails = () => {
       toast.error("Failed to update challenge");
     }
   };
-  return (
+  return loading ? (
+    <SketletonDetail />
+  ) : (
     <div className="max-w-5xl min-h-screen flex justify-center items-center mx-auto p-4 md:p-6 lg:p-8">
       <div className="card bg-base-100 shadow-xl border border-gray-200 rounded-2xl overflow-hidden">
         <div className="flex flex-col md:flex-row gap-8 p-6 md:p-8">
