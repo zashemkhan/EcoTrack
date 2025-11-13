@@ -84,10 +84,6 @@ const ChallangeDetails = () => {
   } = details;
 
   const handleDelete = () => {
-    if (!user) {
-      navigate("/login");
-      return;
-    }
     Swal.fire({
       title: "Are you sure?",
       text: "You won't be able to revert this!",
@@ -119,12 +115,6 @@ const ChallangeDetails = () => {
     });
   };
   const handleJoinChallenge = () => {
-    console.log("clicked");
-    if (!user) {
-      navigate("/login");
-      return;
-    }
- 
 
     const joinData = {
       userId: email,
@@ -160,10 +150,7 @@ const ChallangeDetails = () => {
       });
   };
   const handleUpdate = async () => {
-    if (!user) {
-      navigate("/login");
-      return;
-    }
+
     try {
       const res = await fetch(
         `http://localhost:3000/api/challenges/update/${id}?email=${email}`,
@@ -189,7 +176,6 @@ const ChallangeDetails = () => {
     }
   };
   return (
-    
     <div className="max-w-5xl min-h-screen flex justify-center items-center mx-auto p-4 md:p-6 lg:p-8">
       <div className="card bg-base-100 shadow-xl border border-gray-200 rounded-2xl overflow-hidden">
         <div className="flex flex-col md:flex-row gap-8 p-6 md:p-8">

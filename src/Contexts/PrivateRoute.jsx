@@ -12,7 +12,6 @@ const PrivateRoute = ({ children }) => {
       <span className="loading loading-ring loading-md min-h-screen mx-auto flex justify-center"></span>
     );
   }
-
   if (!user) {
     return <Navigate state={{ from: location }} to="/login"></Navigate>;
   }
