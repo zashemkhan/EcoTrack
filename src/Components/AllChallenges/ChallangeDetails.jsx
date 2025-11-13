@@ -129,7 +129,6 @@ const ChallangeDetails = () => {
         console.log(err);
       });
   };
-
   const handleUpdate = async () => {
     try {
       const res = await fetch(

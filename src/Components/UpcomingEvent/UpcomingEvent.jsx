@@ -22,14 +22,14 @@ const UpcomingEvent = () => {
           Upcoming event
         </h2>
         <p className="text-sm lg:text-[18px] text-gray-500">
-          Be Part of the change -Join Us!
+          Be Part of the change - Join Us!
         </p>
       </div>
       <div className="grid grid-cols-1 gap-5">
         {loading
           ? Array(8)
               .fill(0)
-              .map((_, i) => <SketletonEvent key={i}></SketletonEvent>)
+              .map((_,i) => <SketletonEvent key={i}></SketletonEvent>)
           : events.map((event) => (
               <div
                 key={event._id}
