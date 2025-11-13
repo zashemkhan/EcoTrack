@@ -42,9 +42,11 @@ export const router = createBrowserRouter([
       },
       {
         path: "/myprofile",
-       element: <PrivateRoute>
-        <Profile></Profile>
-       </PrivateRoute>
+        element: (
+          <PrivateRoute>
+            <Profile></Profile>
+          </PrivateRoute>
+        ),
       },
       // pages
       {
@@ -78,7 +80,11 @@ export const router = createBrowserRouter([
       },
       {
         path: "/challenges/:id",
-        element: <ChallangeDetails />,
+        element: (
+          <PrivateRoute>
+            <ChallangeDetails />,
+          </PrivateRoute>
+        ),
       },
       {
         path: "/UpdateChallenges/:id",

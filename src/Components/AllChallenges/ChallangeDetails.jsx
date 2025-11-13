@@ -6,7 +6,7 @@ import { AuthContext } from "../../Contexts/AuthContext";
 import SketletonDetail from "../Sketleton/SketletonDetail";
 
 const ChallangeDetails = () => {
-  const { user, token } = useContext(AuthContext);
+  const { user } = useContext(AuthContext);
   const { email } = user || {};
   const [details, setDetails] = useState([]);
   const navigate = useNavigate();
@@ -19,16 +19,31 @@ const ChallangeDetails = () => {
   // Fetch challenge details
   useEffect(() => {
     if (!id) return;
+    setLoading(true);
+
+    const cachedDetails = localStorage.getItem(`challenge-${id}`);
+
+    if (cachedDetails) {
+      setDetails(JSON.parse(cachedDetails));
+      setLoading(false);
+      return;
+    }
     fetch(`http://localhost:3000/api/challenges/${id}`, {
       headers: {
-        authorization: token ? `Bearer ${token}` : "",
+        authorization: user?.accessToken ? `Bearer ${user?.accessToken}` : "",
         "content-type": "application/json",
       },
     })
       .then((res) => res.json())
-      .then((data) => setDetails(data))
-      .catch((err) => console.log(err));
-  }, [id, token]);
+      .then((data) => {
+        setDetails(data);
+        setLoading(false);
+      })
+      .catch((err) => {
+        setLoading(false);
+        console.log(err);
+      });
+  }, [id, user.accessToken]);
 
   // fecth users join challenge
   useEffect(() => {
@@ -36,7 +51,7 @@ const ChallangeDetails = () => {
 
     fetch(`http://localhost:3000/api/challenge/join?email=${email}`, {
       headers: {
-        authorization: token ? `Bearer ${token}` : "",
+        authorization: user?.accessToken ? `Bearer ${user?.accessToken}` : "",
         "content-type": "application/json",
       },
     })
@@ -52,7 +67,7 @@ const ChallangeDetails = () => {
       .catch((err) => {
         console.log(err);
       });
-  }, [email, id, token]);
+  }, [email, id, user?.accessToken]);
 
   const {
     _id,
@@ -103,12 +118,13 @@ const ChallangeDetails = () => {
       }
     });
   };
-
   const handleJoinChallenge = () => {
+    console.log("clicked");
     if (!user) {
       navigate("/login");
       return;
     }
+ 
 
     const joinData = {
       userId: email,
@@ -119,7 +135,7 @@ const ChallangeDetails = () => {
     fetch("http://localhost:3000/api/challenges/join", {
       method: "POST",
       headers: {
-        authorization: token ? `Bearer ${token}` : "",
+        authorization: user?.accessToken ? `Bearer ${user?.accessToken}` : "",
         "content-type": "application/json",
       },
       body: JSON.stringify(joinData),
@@ -154,24 +170,26 @@ const ChallangeDetails = () => {
         {
           method: "PATCH",
           headers: {
-            authorization: token ? `Bearer ${token}` : "",
+            authorization: user?.accessToken
+              ? `Bearer ${user?.accessToken}`
+              : "",
             "content-type": "application/json",
           },
           body: JSON.stringify(details),
         }
       );
       const data = await res.json();
-      setLoading(false);
       if (res.ok) toast.success("Challenge updated successfully");
       else toast.error(data.message);
     } catch (err) {
       console.log(err);
       toast.error("Failed to update challenge");
+    } finally {
+      setLoading(false);
     }
   };
-  return loading ? (
-    <SketletonDetail />
-  ) : (
+  return (
+    
     <div className="max-w-5xl min-h-screen flex justify-center items-center mx-auto p-4 md:p-6 lg:p-8">
       <div className="card bg-base-100 shadow-xl border border-gray-200 rounded-2xl overflow-hidden">
         <div className="flex flex-col md:flex-row gap-8 p-6 md:p-8">
