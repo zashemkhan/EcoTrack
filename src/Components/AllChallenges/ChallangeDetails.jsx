@@ -97,6 +97,11 @@ const ChallangeDetails = () => {
   };
 
   const handleJoinChallenge = () => {
+    if (!user) {
+      navigate("/login");
+      return;
+    }
+
     const joinData = {
       userId: email,
       challengeId: details._id,
