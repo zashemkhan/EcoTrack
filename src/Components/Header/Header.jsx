@@ -21,14 +21,13 @@ const Header = () => {
         toast.error(toast.message);
       });
   };
-
   const links = (
     <>
       <NavLink
         className={({ isActive }) => (isActive ? "border-b" : "text-white")}
         to="/"
       >
-        <li>Home</li>
+             <li>Home</li>
       </NavLink>
       <NavLink
         className={({ isActive }) =>
