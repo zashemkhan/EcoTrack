@@ -12,7 +12,9 @@ const MyActivities = () => {
   console.log(joinData);
   useEffect(() => {
     if (!user?.email) return;
-    fetch(`http://localhost:3000/api/challenges/join?email=${user.email}`)
+    fetch(
+      `https://eco-track-teal.vercel.app/api/challenges/join?email=${user.email}`
+    )
       .then((res) => res.json())
       .then((data) => {
         setJoinData(data);
@@ -26,7 +28,8 @@ const MyActivities = () => {
   const getStatus = (joinDate, duration) => {
     const start = new Date(joinDate);
     const end = new Date(start);
-    end.setDate(end.getDate() + duration);
+    end.setDate(end.getDate() + Number(duration));
+    end.setHours(23, 59, 999);
 
     const today = new Date();
     if (today < start) return "Not Started";
@@ -52,16 +55,18 @@ const MyActivities = () => {
     const start = new Date(joinDate);
     const dur = Number(duration);
 
-    if (isNaN(start) || isNaN(dur)) return 0;
+    if (isNaN(start.getTime()) || isNaN(dur)) return 0;
+
     const end = new Date(start);
     end.setDate(end.getDate() + dur);
-    const today = new Date();
+    end.setHours(23, 59, 999);
 
+    const today = new Date();
     if (today < start) return 0;
     if (today >= end) return 100;
 
-    const totalTime = end - start;
-    const elapsed = today - start;
+    const totalTime = end.getTime() - start.getTime();
+    const elapsed = today.getTime() - start.getTime();
     return Math.round((elapsed / totalTime) * 100);
   };
 

@@ -8,7 +8,7 @@ const RecentTips = () => {
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    fetch("http://localhost:3000/api/tips")
+    fetch("https://eco-track-teal.vercel.app/api/tips")
       .then((res) => res.json())
       .then((data) => {
         setTips(data);

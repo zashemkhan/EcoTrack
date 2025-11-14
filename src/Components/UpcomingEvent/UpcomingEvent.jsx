@@ -5,7 +5,7 @@ const UpcomingEvent = () => {
   const [events, setEvents] = useState([]);
   const [loading, setLoading] = useState([]);
   useEffect(() => {
-    fetch("http://localhost:3000/api/upComingEvents")
+    fetch("https://eco-track-teal.vercel.app/api/upComingEvents")
       .then((res) => res.json())
       .then((data) => {
         setEvents(data);
@@ -29,7 +29,7 @@ const UpcomingEvent = () => {
         {loading
           ? Array(8)
               .fill(0)
-              .map((_,i) => <SketletonEvent key={i}></SketletonEvent>)
+              .map((_, i) => <SketletonEvent key={i}></SketletonEvent>)
           : events.map((event) => (
               <div
                 key={event._id}
@@ -41,13 +41,15 @@ const UpcomingEvent = () => {
                 <p className="text-sm text-gray-600 mb-2">
                   {event.description}
                 </p>
-                <div className="flex items-center justify-between text-sm text-gray-500">
+                <div className=" text-sm text-gray-500">
                   <span>📅 {new Date(event.date).toLocaleDateString()}</span>
-                  <span>📍 {event.location}</span>
                 </div>
-                <div className="mt-3 text-sm ">
-                  👥 {event.currentParticipants} / {event.maxParticipants}{" "}
-                  Joined
+                <div className="mt-3 text-sm flex items-center justify-between">
+                  <span>
+                    👥 {event.currentParticipants} / {event.maxParticipants}{" "}
+                    Joined
+                  </span>
+                  <span>📍 {event.location}</span>
                 </div>
               </div>
             ))}

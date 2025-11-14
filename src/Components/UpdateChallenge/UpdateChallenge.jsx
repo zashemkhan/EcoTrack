@@ -9,7 +9,7 @@ const UpdateChallenge = () => {
   const { id } = useParams();
 
   useEffect(() => {
-    fetch(`http://localhost:3000/api/challenges/${id}`)
+    fetch(`https://eco-track-teal.vercel.app/api/challenges/${id}`)
       .then((res) => res.json())
       .then((data) => {
         setUpdate(data);
@@ -46,13 +46,16 @@ const UpdateChallenge = () => {
       participants,
     };
 
-    fetch(`http://localhost:3000/api/challenge/update/${update._id}`, {
-      method: "PATCH",
-      headers: {
-        "content-type": "application/json",
-      },
-      body: JSON.stringify(formData),
-    })
+    fetch(
+      `https://eco-track-teal.vercel.app/api/challenge/update/${update._id}`,
+      {
+        method: "PATCH",
+        headers: {
+          "content-type": "application/json",
+        },
+        body: JSON.stringify(formData),
+      }
+    )
       .then((res) => res.json())
       .then((data) => {
         toast.success("Successfully Updated");
@@ -86,11 +89,9 @@ const UpdateChallenge = () => {
                 placeholder="Type Your challange name"
               />
             </div>
-            {/* Category Dropdown */}
             <div>
               <label className="label font-medium">Category</label>
               <select
-                // defaultValue={update.category}
                 name="category"
                 required
                 className="rounded-md  select w-full mt-2 focus:border-0 focus:outline-gray-200"
@@ -110,7 +111,6 @@ const UpdateChallenge = () => {
                 <option value="Other">Other</option>
               </select>
             </div>
-            {/* Target Field */}
             <div>
               <label className="label font-medium">Target</label>
               <input
@@ -136,7 +136,6 @@ const UpdateChallenge = () => {
               />
             </div>
 
-            {/* start or ending date */}
             <div className="flex items-center gap-4">
               <div>
                 <label className="label font-medium">Start Date</label>
@@ -159,7 +158,6 @@ const UpdateChallenge = () => {
                 />
               </div>
             </div>
-            {/* ImpactMetric */}
             <div>
               <label className="label font-medium">Impact Metric</label>
               <input
@@ -172,7 +170,6 @@ const UpdateChallenge = () => {
               />
             </div>
 
-            {/* Description Textarea */}
             <div>
               <label className="label font-medium">Description</label>
               <textarea
@@ -185,7 +182,6 @@ const UpdateChallenge = () => {
               ></textarea>
             </div>
 
-            {/* Thumbnail URL */}
             <div>
               <label className="label font-medium">Photo URL</label>
               <input
@@ -198,7 +194,6 @@ const UpdateChallenge = () => {
               />
             </div>
 
-            {/* Submit Button */}
             <button
               disabled={loader}
               type="submit"

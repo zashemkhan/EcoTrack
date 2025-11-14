@@ -4,6 +4,7 @@ import { Link, useLocation, useNavigate } from "react-router";
 import { toast } from "react-toastify";
 import { AuthContext } from "../../Contexts/AuthContext";
 import { FaEye, FaEyeSlash } from "react-icons/fa6";
+import { register } from "swiper/element";
 
 const Register = () => {
   const {
@@ -19,18 +20,12 @@ const Register = () => {
   const location = useLocation();
   const [passwordError, setPasswordError] = useState("");
   const [showPass, setShowPass] = useState(false);
-
-  if (loading) {
-    return (
-      <span className="loading loading-ring loading-md min-h-screen mx-auto flex justify-center"></span>
-    );
-  }
-
-  const validationMesssage = validatePassword(password);
-  if (validatePassword) {
-    toast.error(validationMesssage);
-    return;
-  }
+  const [btnLoading, setBtnLoading] = useState(false);
+  // if (loading) {
+  //   return (
+  //     <span className="loading loading-ring loading-md min-h-screen mx-auto flex justify-center"></span>
+  //   );
+  // }
 
   const validatePassword = (password) => {
     const minLength = 6;
@@ -50,7 +45,6 @@ const Register = () => {
     if (!specialChar.test(password)) {
       return "Password must contain at least one special character.";
     }
-
     return "";
   };
 
@@ -63,12 +57,21 @@ const Register = () => {
     const password = form.password.value;
     console.log(displayName, email, password, photoURL);
 
+    setBtnLoading(true);
+    const validationMesssage = validatePassword(password);
+    if (validationMesssage) {
+      setPasswordError(validationMesssage);
+      return;
+    }
+
+    setPasswordError("");
+
     createUserFunc(email, password)
       .then((data) => {
         const user = data.user;
         updateProfileFunc(displayName, photoURL);
 
-        fetch("http://localhost:3000/user", {
+        fetch("https://eco-track-teal.vercel.app/user", {
           method: "POST",
           headers: {
             "content-type": "application/json",
@@ -87,15 +90,19 @@ const Register = () => {
         navigate("/login");
       })
       .catch((error) => {
-        toast.error(error.message);
-      });
+        if (error.code === "auth/email-already-in-use") {
+          toast.error("This email is already registered. Please login.");
+          return;
+        }
+      })
+      .finally(() => setBtnLoading(false));
   };
 
   const handleGoogleSignIn = () => {
     signinwithpopupFunc()
       .then((result) => {
         const user = result.user;
-        fetch("http://localhost:3000/user", {
+        fetch("https://eco-track-teal.vercel.app/user", {
           method: "POST",
           headers: {
             "content-type": "application/json",
@@ -114,12 +121,14 @@ const Register = () => {
       })
       .catch((error) => {
         toast.error(error.message);
+        return;
       });
   };
   const handleShowPass = (e) => {
     e.preventDefault();
     setShowPass(!showPass);
   };
+
   return (
     <div className="py-20">
       <div className="card bg-[#138661] text-white w-full mx-auto my-20 max-w-sm shrink-0 shadow-2xl">
@@ -136,7 +145,6 @@ const Register = () => {
                 placeholder="Name"
                 required
               />
-
               {/* email field */}
               <label className="label">Email</label>
               <input
@@ -146,7 +154,6 @@ const Register = () => {
                 placeholder="Email"
                 required
               />
-
               {/*photo  */}
               <label className="label">PhotoURL</label>
               <input
@@ -156,17 +163,6 @@ const Register = () => {
                 placeholder="Photo URL"
                 required
               />
-
-              {/* password */}
-              {/* <label className="label">Password</label>
-              <input
-                type="password"
-                name="password"
-                className="input text-black rounded-lg focus:border-0 focus:outline-gray-200 "
-                placeholder="Password"
-                required
-              /> */}
-
               <div className="mt-0.5 relative">
                 <label className="label">Password</label>
                 <input
@@ -187,11 +183,18 @@ const Register = () => {
                   )}
                 </button>
               </div>
+              <div className="text-red-200 font-semibold text-sm mt-0.5">
+                {passwordError}
+              </div>
               <button
                 type="submit"
                 className="btn hover:to-emerald-900 border-none shadow-none text-white mt-3 rounded-lg bg-linear-to-r from-green-300 to-green-800 "
               >
-                Register
+                {btnLoading ? (
+                  <span className="loading loading-ring loading-md min-h-screen mx-auto flex justify-center"></span>
+                ) : (
+                  "Register"
+                )}
               </button>
             </fieldset>
           </form>

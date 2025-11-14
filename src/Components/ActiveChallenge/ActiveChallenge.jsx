@@ -7,7 +7,7 @@ const ActiveChallenge = () => {
   const [loading, setLoading] = useState(true);
   console.log(activeData);
   useEffect(() => {
-    fetch("http://localhost:3000/api/activechallenges")
+    fetch("https://eco-track-teal.vercel.app/api/activechallenges")
       .then((res) => res.json())
       .then((data) => {
         setActiveData(data);
@@ -19,7 +19,7 @@ const ActiveChallenge = () => {
   }, []);
 
   return (
-    <div>
+    <div className="">
       <h2 className="  font-bold lg:text-3xl text-2xl text-center text-green-700 mb-8">
         Active Challenges
       </h2>
@@ -51,16 +51,7 @@ const ActiveChallenge = () => {
                     <span className="font-bold">category :</span>
                     {active.category}
                   </p>
-                  <p className="text-gray-800 ">
-                    {" "}
-                    <span className="font-bold">Duration :</span>{" "}
-                    {active.duration} Days
-                  </p>
-                  <p className="text-gray-800 font-extrabol">
-                    {" "}
-                    <span className="font-bold">Participants :</span>{" "}
-                    {active.participants}
-                  </p>
+
                   <div className="card-actions justify-end items-center">
                     <Link to={`/challenges/${active._id}`}>
                       <p className="btn bg-linear-to-r from-green-600 to-green-700 text-white mt-3 hover:to-emerald-900">

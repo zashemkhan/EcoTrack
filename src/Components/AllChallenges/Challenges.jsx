@@ -22,7 +22,7 @@ const Challenges = () => {
   const [filteredChallenges, setFilteredChallenges] = useState([]);
 
   useEffect(() => {
-    fetch("http://localhost:3000/api/challenges")
+    fetch("https://eco-track-teal.vercel.app/api/challenges")
       .then((res) => res.json())
       .then((data) => {
         setChallengesData(data);
@@ -32,42 +32,25 @@ const Challenges = () => {
       .catch((err) => console.log(err));
   }, []);
 
-  useEffect(() => {
-    let filtered = [...challengesData];
+  const applyFilters = () => {
+    setLoading(true);
 
-    // Category filter
-    if (filters.categories.length > 0) {
-      filtered = filtered.filter((c) =>
-        filters.categories.includes(c.category)
-      );
-    }
+    const queryParams = new URLSearchParams({
+      categories: filters.categories.join(","),
+      start: filters.start,
+      end: filters.end,
+      minParticipants: filters.minParticipants,
+      maxParticipants: filters.maxParticipants,
+    });
 
-    // Date filter
-    if (filters.start) {
-      filtered = filtered.filter(
-        (c) => new Date(c.startDate) >= new Date(filters.start)
-      );
-    }
-    if (filters.end) {
-      filtered = filtered.filter(
-        (c) => new Date(c.endDate) <= new Date(filters.end)
-      );
-    }
-
-    // Participants filter
-    if (filters.minParticipants) {
-      filtered = filtered.filter(
-        (c) => c.participants >= parseInt(filters.minParticipants)
-      );
-    }
-    if (filters.maxParticipants) {
-      filtered = filtered.filter(
-        (c) => c.participants <= parseInt(filters.maxParticipants)
-      );
-    }
-
-    setFilteredChallenges(filtered);
-  }, [filters, challengesData]);
+    fetch(`https://eco-track-teal.vercel.app/api/challenges?${queryParams}`)
+      .then((res) => res.json())
+      .then((data) => {
+        setFilteredChallenges(data);
+        setLoading(false);
+      })
+      .catch((err) => console.log(err));
+  };
 
   const toggleCategory = (category) => {
     setFilters((prev) => {
@@ -77,6 +60,10 @@ const Challenges = () => {
       return { ...prev, categories: newCategories };
     });
   };
+
+  useEffect(() => {
+    applyFilters();
+  }, [filters]);
   return (
     <div className="w-11/12 mx-auto py-10">
       <div className="bg-green-50 rounded-2xl shadow-lg p-6 mb-10 flex flex-col md:flex-row gap-6 items-center justify-between transition-all">
@@ -95,7 +82,6 @@ const Challenges = () => {
             </button>
           ))}
         </div>
-
         <div className="flex gap-3 items-center flex-wrap">
           <div className="flex items-center gap-1">
             <label className="font-medium text-gray-700">Start:</label>
@@ -120,7 +106,6 @@ const Challenges = () => {
             />
           </div>
         </div>
-
         {/* Participants Range */}
         <div className="flex gap-3 items-center flex-wrap">
           <div className="flex items-center gap-1">

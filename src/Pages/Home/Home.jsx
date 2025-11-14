@@ -8,21 +8,21 @@ import HowWorks from "../../Components/GoGReen/HowWorks";
 
 const Home = () => {
   return (
-    <div className="min-h-screen mx-auto w-11/12 lg:py-15 py-10">
-      <HeroBanner></HeroBanner>
-      <LiveStatics></LiveStatics>
-
-      <section>
+    <div className="min-h-screen  ">
+      <section >
+        <HeroBanner></HeroBanner>
+        <LiveStatics></LiveStatics>
+      </section>
+      <section className="mx-auto w-11/12">
         <ActiveChallenge></ActiveChallenge>
       </section>
-      <section>
+      <section className="mx-auto w-11/12">
         <RecentTips></RecentTips>
       </section>
-      <section className="">
+      <section className="mx-auto w-11/12">
         <UpcomingEvent></UpcomingEvent>
       </section>
-      <section className="py-15">
-        {/* <h2>hoo</h2> */}
+      <section className="py-15 mx-auto w-11/12">
         <GoGReen></GoGReen>
         <HowWorks></HowWorks>
       </section>

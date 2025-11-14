@@ -45,24 +45,24 @@ const HeroBanner = () => {
         loop={true}
         spaceBetween={30}
         slidePreview={1}
-        className="lg:h-[50vh] h-[30vh] w-full rounded-md shadow-lg"
+        className="lg:h-[70vh] h-[30vh] w-full rounded- shadow-lg"
       >
         {featureData.map((item) => (
           <SwiperSlide key={ImInsertTemplate.id}>
-            <div className="relative h-[50vh] md:h-[70vh] w-full">
+            <div className="relative h-[70vh] md:h-[70vh] w-full">
               <img
                 className="object-cover w-full h-full"
                 src={item.img}
                 alt={item.title}
               />
-              <div className="absolute inset-0 bg-black/40 flex flex-col justify-center items-center text-white text-center px-4 mb-10">
+              <div className="absolute inset-0 bg-black/40 h-full flex flex-col justify-center items-center text-white text-center px-4 mb-10">
                 <h2 className="text-2xl md:text-5xl font-bold mb-2">
                   {item.title}
                 </h2>
                 <p className="text-sm md:text-lg mb-3 max-w-xl">
                   {item.description}
                 </p>
-                <button className="bg-green-700 hover:bg-green-800 text-white text-sm md:text-base px-5 py-2 rounded-md font-semibold transition-all shadow-md lg:mb-40 md:mb-70 mt-2 mb-30">
+                <button className="bg-green-700 hover:bg-green-800 text-white text-sm md:text-base px-5 py-2 rounded-md font-semibold transition-all shadow-md lg:mb-10 md:mb-90 mt-2 mb-90">
                   View Challenge
                 </button>
               </div>

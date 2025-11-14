@@ -7,6 +7,7 @@ const GoGReen = () => {
         <h2 className="text-3xl font-bold text-green-800">why Go Green?</h2>
         <p className="text-gray-600 mt-2 ">
           Smaall action , Big Environment impact
+          
         </p>
       </div>
       <div className="grid md:grid-cols-3 gap-8 mx-auto max-w-6xl px-6">

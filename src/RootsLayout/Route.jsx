@@ -15,12 +15,10 @@ import ForgetPass from "../Components/ForgetPass/ForgetPass";
 import Register from "../Components/Register/Register";
 import Login from "../Components/Login/Login";
 import PrivateRoute from "../Contexts/PrivateRoute";
-// import ProgressDetails from "../Components/ProgressDetails/ProgressDetails";
 
 export const router = createBrowserRouter([
   {
     path: "/",
-    hydrateFallbackElement: <ErrorPage></ErrorPage>,
     element: <Root></Root>,
     children: [
       {
@@ -80,11 +78,7 @@ export const router = createBrowserRouter([
       },
       {
         path: "/challenges/:id",
-        element: (
-          <PrivateRoute>
-            <ChallangeDetails />,
-          </PrivateRoute>
-        ),
+        element: <ChallangeDetails />,
       },
       {
         path: "/UpdateChallenges/:id",
@@ -95,6 +89,8 @@ export const router = createBrowserRouter([
         ),
       },
     ],
+  },
+  {
   },
   {
     path: "/*",

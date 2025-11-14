@@ -11,27 +11,28 @@ const Login = () => {
   const navigate = useNavigate();
   const location = useLocation();
   const emailRef = useRef();
-
-  if (loading) {
-    return (
-      <span className="loading loading-ring loading-md min-h-screen mx-auto flex justify-center"></span>
-    );
-  }
+  const [btnLoading, setBtnLoading] = useState(false);
 
   const handlelogin = (event) => {
     event.preventDefault();
     const form = event.target;
     const email = form.email.value;
     const password = form.password.value;
+    console.log("clicked");
+
+    setBtnLoading(true);
+
     loginFunc(email, password)
       .then((data) => {
         const user = data.user;
+        event.target.reset();
         navigate(location.state || "/");
         toast.success("login successfull");
       })
       .catch((error) => {
         toast.error(error.message);
-      });
+      })
+      .finally(() => setBtnLoading(false));
   };
 
   const handleGoogleSignIn = () => {
@@ -45,7 +46,7 @@ const Login = () => {
       });
   };
 
-  const handleSHowPass = (e) => {
+  const handleShowPass = (e) => {
     e.preventDefault();
     setShowPass(!showPass);
   };
@@ -54,7 +55,7 @@ const Login = () => {
     <div className="py-20 min-h-screen flex items-center justify-center ">
       <div className="card bg-[#138661] text-white w-full mx-auto py-10 max-w-sm shrink-0 shadow-2xl">
         <div className="card-body ">
-          <h1 className="text-3xl font-bold text-center">Login EcoTrack</h1>
+          <h1 className="text-3xl font-bold text-center">Login to EcoTrack</h1>
           <form onSubmit={handlelogin}>
             <fieldset className="fieldset ">
               {/* email field */}
@@ -82,7 +83,7 @@ const Login = () => {
                 />
                 <button
                   className="absolute bottom-3.5 right-8"
-                  onClick={handleSHowPass}
+                  onClick={handleShowPass}
                 >
                   {showPass ? (
                     <FaEyeSlash className=" text-black  size-3.5" />
@@ -93,11 +94,19 @@ const Login = () => {
               </div>
 
               <Link to="/forgetPass">
-                <p className="link link-hover border w-fit">Forgot password?</p>
+                <p className="link link-hover">Forgot password?</p>
               </Link>
 
-              <button className="btn text-white mt-3 rounded-lg bg-linear-to-r from-green-300 to-green-800 border-none hover:to-emerald-900 shadow-none">
-                Login
+              <button
+                type="submit"
+                disabled={btnLoading}
+                className="btn text-white mt-3 rounded-lg bg-linear-to-r from-green-300 to-green-800 border-none hover:to-emerald-900 shadow-none"
+              >
+                {btnLoading ? (
+                  <span className="loading loading-ring loading-md min-h-screen mx-auto flex justify-center"></span>
+                ) : (
+                  "Log in"
+                )}
               </button>
             </fieldset>
           </form>

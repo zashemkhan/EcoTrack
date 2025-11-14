@@ -1,6 +1,4 @@
-import React, { use, useContext } from "react";
 import { Link } from "react-router";
-import { AuthContext } from "../../Contexts/AuthContext";
 
 const ChallengesCard = ({ challenges }) => {
   const {
@@ -28,7 +26,6 @@ const ChallengesCard = ({ challenges }) => {
       </figure>
       <div className="card-body space-y-2">
         <h2 className="card-title font-extrabold">{title}</h2>
-        <h3>{createdBy}</h3>
         <p className="line-clamp-2 ">{description}</p>
         <p className="text-gray-800 font-extrabol">
           {" "}

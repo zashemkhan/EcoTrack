@@ -1,21 +1,26 @@
-import React, { useContext } from "react";
+import React, { useContext, useState } from "react";
 import { Link, NavLink, useNavigate } from "react-router";
 import { AuthContext } from "../../Contexts/AuthContext";
 import { toast } from "react-toastify";
-import { FaGear } from "react-icons/fa6";
 import { FaUser } from "react-icons/fa";
 import { IoLogOut } from "react-icons/io5";
 import { LuSquareActivity } from "react-icons/lu";
 
 const Header = () => {
+  // const [loading, setLoading] = useState(true);
   const { signOutFunc, user, loading } = useContext(AuthContext);
   const navigate = useNavigate();
+  if (loading) {
+    return (
+      <span className="loading loading-ring loading-md min-h-screen mx-auto flex justify-center"></span>
+    );
+  }
 
   const handlesignOut = () => {
     signOutFunc()
       .then(() => {
         navigate("/login");
-        toast.success("signOut successfull");
+        toast.success("sign Out successfull");
       })
       .catch((error) => {
         toast.error(toast.message);
@@ -48,10 +53,10 @@ const Header = () => {
     </>
   );
   return (
-    <div className=" shadow-sm  bg-[#138661] text-white py-2 ">
+    <div className=" shadow-sm  bg-[#138661] text-white sticky top-0 z-50">
       <div className="navbar  mx-auto w-11/12   p-0">
         <div className="navbar-start">
-          <div className="dropdown ">
+          <div className="dropdown z-4">
             <div
               tabIndex={0}
               role="button"
@@ -90,9 +95,7 @@ const Header = () => {
           <ul className="menu menu-horizontal px-1 gap-10">{links}</ul>
         </div>
         <div className="navbar-end gap-5">
-          {loading ? (
-            <span className="loading loading-ring loading-md flex items-center justify-center"></span>
-          ) : user ? (
+          {user ? (
             <div className="dropdown dropdown-end z-50">
               <div
                 tabIndex={0}

@@ -3,7 +3,7 @@ import React, { use, useEffect, useState } from "react";
 const LiveStatics = () => {
   const [stats, setStats] = useState([]);
   useEffect(() => {
-    fetch("http://localhost:3000/api/livestatics")
+    fetch("https://eco-track-teal.vercel.app/api/livestatics")
       .then((res) => res.json())
       .then((data) => {
         setStats(data);
@@ -35,7 +35,6 @@ const LiveStatics = () => {
               </span>
             </>
           ))}
-          {/* for infinite */}
           {stats.map((s, index) => (
             <>
               <span key={`dup-${index}`} className="mx-10 flex items-center">
