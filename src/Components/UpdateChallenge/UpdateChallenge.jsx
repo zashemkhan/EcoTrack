@@ -10,7 +10,6 @@ const UpdateChallenge = () => {
   const { id } = useParams();
   const { user } = useContext(AuthContext);
 
-  
   useEffect(() => {
     fetch(`https://eco-track-teal.vercel.app/api/challenges/${id}`)
       .then((res) => res.json())
@@ -49,14 +48,17 @@ const UpdateChallenge = () => {
       participants,
     };
 
-    fetch(`http://localhost:3000/api/challenges/update/${update._id}`, {
-      method: "PATCH",
-      headers: {
-        authorization: user?.accessToken ? `Bearer ${user?.accessToken}` : "",
-        "content-type": "application/json",
-      },
-      body: JSON.stringify(formData),
-    })
+    fetch(
+      `https://eco-track-teal.vercel.app/api/challenges/update/${update._id}`,
+      {
+        method: "PATCH",
+        headers: {
+          authorization: user?.accessToken ? `Bearer ${user?.accessToken}` : "",
+          "content-type": "application/json",
+        },
+        body: JSON.stringify(formData),
+      }
+    )
       .then((res) => res.json())
       .then((data) => {
         toast.success("Successfully Updated");

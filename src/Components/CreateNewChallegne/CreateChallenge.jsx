@@ -44,7 +44,7 @@ const CreateChallenge = () => {
       createdBy,
     };
 
-    fetch("http://localhost:3000/api/challenge/add", {
+    fetch("https://eco-track-teal.vercel.app/api/challenge/add", {
       method: "POST",
       headers: {
         "content-type": "application/json",

@@ -77,7 +77,7 @@ const ChallangeDetails = () => {
   const handleUpdate = async () => {
     try {
       const res = await fetch(
-        `http://localhost:3000/api/challenges/update/${id}`,
+        `https://eco-track-teal.vercel.app/api/challenges/update/${id}`,
         {
           method: "PATCH",
           headers: {
