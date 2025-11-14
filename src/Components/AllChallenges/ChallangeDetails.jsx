@@ -77,7 +77,7 @@ const ChallangeDetails = () => {
   const handleUpdate = async () => {
     try {
       const res = await fetch(
-        `https://eco-track-teal.vercel.app/api/challenges/update/${id}`,
+        `http://localhost:3000/api/challenges/update/${id}`,
         {
           method: "PATCH",
           headers: {
@@ -95,7 +95,6 @@ const ChallangeDetails = () => {
       else toast.error(data.message || "Update Failed");
     } catch (err) {
       console.log(err);
-      toast.error("Failed to update challenge");
     }
   };
 
@@ -155,6 +154,7 @@ const ChallangeDetails = () => {
     endDate,
     imageUrl,
   } = details;
+  console.log(details);
 
   return (
     <div className="max-w-5xl min-h-screen flex justify-center items-center mx-auto p-4 md:p-6 lg:p-8">

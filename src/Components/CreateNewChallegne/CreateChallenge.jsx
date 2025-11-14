@@ -36,7 +36,6 @@ const CreateChallenge = () => {
       duration,
       startDate,
       endDate,
-      createdBy,
       description,
       imageUrl,
       participants,
@@ -45,10 +44,11 @@ const CreateChallenge = () => {
       createdBy,
     };
 
-    fetch("https://eco-track-teal.vercel.app/api/challenge/add", {
+    fetch("http://localhost:3000/api/challenge/add", {
       method: "POST",
       headers: {
         "content-type": "application/json",
+        authorization: user?.accessToken ? `Bearer ${user?.accessToken}` : "",
       },
       body: JSON.stringify(formData),
     })
@@ -56,7 +56,7 @@ const CreateChallenge = () => {
       .then((data) => {
         toast.success("Successfully Created Challenge");
         navigate(-1);
-      }, 500)
+      })
       .catch((err) => {
         console.log(err);
       })
