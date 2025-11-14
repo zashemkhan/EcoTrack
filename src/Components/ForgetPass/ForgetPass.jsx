@@ -10,7 +10,6 @@ const ForgetPass = () => {
         <p className="text-gray-500 text-center mb-8">
           Enter your registered email address and we'll send you a code
         </p>
-
         <form className="space-y-6">
           <div>
             <label className="block text-sm font-semibold text-gray-600 mb-2">
@@ -24,12 +23,10 @@ const ForgetPass = () => {
               className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-green-500"
             />
           </div>
-
           <button className="w-full bg-green-600 text-white py-3 rounded-lg font-semibold hover:bg-green-700 transition-all duration-200">
             Send
           </button>
         </form>
-
         <div className="text-center mt-6">
           <a
             href="/login"

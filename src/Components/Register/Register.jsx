@@ -1,8 +1,9 @@
-import { useContext, useId, useState } from "react";
+import { useContext, useState } from "react";
 import { FaGoogle } from "react-icons/fa";
-import { data, Link, useLocation, useNavigate } from "react-router";
+import { Link, useLocation, useNavigate } from "react-router";
 import { toast } from "react-toastify";
 import { AuthContext } from "../../Contexts/AuthContext";
+import { FaEye, FaEyeSlash } from "react-icons/fa6";
 
 const Register = () => {
   const {
@@ -17,11 +18,18 @@ const Register = () => {
   const navigate = useNavigate();
   const location = useLocation();
   const [passwordError, setPasswordError] = useState("");
+  const [showPass, setShowPass] = useState(false);
 
   if (loading) {
     return (
       <span className="loading loading-ring loading-md min-h-screen mx-auto flex justify-center"></span>
     );
+  }
+
+  const validationMesssage = validatePassword(password);
+  if (validatePassword) {
+    toast.error(validationMesssage);
+    return;
   }
 
   const validatePassword = (password) => {
@@ -55,11 +63,6 @@ const Register = () => {
     const password = form.password.value;
     console.log(displayName, email, password, photoURL);
 
-    const validationMesssage = validatePassword(password);
-    if (validatePassword) {
-      toast.error(validationMesssage);
-      return;
-    }
     createUserFunc(email, password)
       .then((data) => {
         const user = data.user;
@@ -113,6 +116,10 @@ const Register = () => {
         toast.error(error.message);
       });
   };
+  const handleShowPass = (e) => {
+    e.preventDefault();
+    setShowPass(!showPass);
+  };
   return (
     <div className="py-20">
       <div className="card bg-[#138661] text-white w-full mx-auto my-20 max-w-sm shrink-0 shadow-2xl">
@@ -151,14 +158,35 @@ const Register = () => {
               />
 
               {/* password */}
-              <label className="label">Password</label>
+              {/* <label className="label">Password</label>
               <input
                 type="password"
                 name="password"
                 className="input text-black rounded-lg focus:border-0 focus:outline-gray-200 "
                 placeholder="Password"
                 required
-              />
+              /> */}
+
+              <div className="mt-0.5 relative">
+                <label className="label">Password</label>
+                <input
+                  type={showPass ? "text" : "password"}
+                  name="password"
+                  className="input mt-1  text-black rounded-lg   focus:outline-none"
+                  placeholder="Password"
+                  required
+                />
+                <button
+                  className="absolute bottom-3.5 right-8"
+                  onClick={handleShowPass}
+                >
+                  {showPass ? (
+                    <FaEyeSlash className=" text-black  size-3.5" />
+                  ) : (
+                    <FaEye className=" text-black  size-3.5" />
+                  )}
+                </button>
+              </div>
               <button
                 type="submit"
                 className="btn hover:to-emerald-900 border-none shadow-none text-white mt-3 rounded-lg bg-linear-to-r from-green-300 to-green-800 "

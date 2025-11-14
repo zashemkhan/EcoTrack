@@ -1,11 +1,13 @@
-import React, { useContext, useRef } from "react";
+import React, { useContext, useRef, useState } from "react";
 import { FaGoogle } from "react-icons/fa";
 import { Link, useLocation, useNavigate } from "react-router";
 import { toast } from "react-toastify";
 import { AuthContext } from "../../Contexts/AuthContext";
+import { FaEye, FaEyeSlash } from "react-icons/fa6";
 
 const Login = () => {
   const { loginFunc, signinwithpopupFunc, loading } = useContext(AuthContext);
+  const [showPass, setShowPass] = useState("text");
   const navigate = useNavigate();
   const location = useLocation();
   const emailRef = useRef();
@@ -43,38 +45,57 @@ const Login = () => {
       });
   };
 
+  const handleSHowPass = (e) => {
+    e.preventDefault();
+    setShowPass(!showPass);
+  };
+
   return (
     <div className="py-20 min-h-screen flex items-center justify-center ">
       <div className="card bg-[#138661] text-white w-full mx-auto py-10 max-w-sm shrink-0 shadow-2xl">
         <div className="card-body ">
           <h1 className="text-3xl font-bold text-center">Login EcoTrack</h1>
           <form onSubmit={handlelogin}>
-            <fieldset className="fieldset">
+            <fieldset className="fieldset ">
               {/* email field */}
-              <label className="label">Email</label>
-              <input
-                type="email"
-                name="email"
-                className="input text-black rounded-lg focus:border-0 focus:outline-gray-200"
-                placeholder="Email"
-                required
-                ref={emailRef}
-              />
+              <div>
+                <label className="label">Email</label>
+                <input
+                  type="email"
+                  name="email"
+                  className="input focus:outline-none mt-1 text-black rounded-lg "
+                  placeholder="Email"
+                  required
+                  ref={emailRef}
+                />
+              </div>
 
               {/* password */}
-              <label className="label">Password</label>
-              <input
-                type="password"
-                name="password"
-                className="input text-black rounded-lg focus:border-0 focus:outline-gray-200"
-                placeholder="Password"
-                required
-              />
-              <div className=" mt-1">
-                <Link to="/forgetPass">
-                  <p className="link link-hover">Forgot password?</p>
-                </Link>
+              <div className="mt-2 relative">
+                <label className="label">Password</label>
+                <input
+                  type={showPass ? "text" : "password"}
+                  name="password"
+                  className="input mt-1  text-black rounded-lg   focus:outline-none"
+                  placeholder="Password"
+                  required
+                />
+                <button
+                  className="absolute bottom-3.5 right-8"
+                  onClick={handleSHowPass}
+                >
+                  {showPass ? (
+                    <FaEyeSlash className=" text-black  size-3.5" />
+                  ) : (
+                    <FaEye className=" text-black  size-3.5" />
+                  )}
+                </button>
               </div>
+
+              <Link to="/forgetPass">
+                <p className="link link-hover border w-fit">Forgot password?</p>
+              </Link>
+
               <button className="btn text-white mt-3 rounded-lg bg-linear-to-r from-green-300 to-green-800 border-none hover:to-emerald-900 shadow-none">
                 Login
               </button>
