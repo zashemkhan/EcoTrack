@@ -157,14 +157,14 @@ const ChallangeDetails = () => {
   console.log(details);
 
   return (
-    <div className="max-w-5xl min-h-screen flex justify-center items-center mx-auto p-4 md:p-6 lg:p-8">
+    <div className=" min-h-screen flex justify-center items-center mx-auto p-4 md:p-6 lg:p-8">
       <div className="card bg-base-100 shadow-xl border border-gray-200 rounded-2xl overflow-hidden">
         <div className="flex flex-col md:flex-row gap-8 p-6 md:p-8">
           <div className="shrink-0 w-full md:w-1/2">
             <img
               src={imageUrl}
               alt={title}
-              className="w-full h-100 object-cover rounded-xl shadow-md"
+              className="w-full h-full object-cover rounded-xl shadow-md"
             />
           </div>
 

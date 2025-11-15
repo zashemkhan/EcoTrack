@@ -61,6 +61,7 @@ const Register = () => {
     const validationMesssage = validatePassword(password);
     if (validationMesssage) {
       setPasswordError(validationMesssage);
+      setBtnLoading(false);
       return;
     }
 
