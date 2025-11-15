@@ -8,7 +8,13 @@ const MyActivities = () => {
   const [joinData, setJoinData] = useState([]);
   const [loading, setLoading] = useState(true);
   const { user } = useContext(AuthContext);
-  // const { email } = user || {};
+
+  const formatDate = (dateString) => {
+    const d = new Date(dateString);
+    if (isNaN(d.getTime())) return "Invalid Date";
+    return d.toLocaleDateString();
+  };
+
   console.log(joinData);
   useEffect(() => {
     if (!user?.email) return;
@@ -25,16 +31,19 @@ const MyActivities = () => {
       });
   }, [user]);
 
-  const getStatus = (joinDate, duration) => {
-    const start = new Date(joinDate);
+  const getStatus = (startDate, duration) => {
+    const start = new Date(startDate);
+    const dur = Number(duration);
+    if (isNaN(start.getTime()) || isNaN(dur)) return "Invalid";
+
     const end = new Date(start);
-    end.setDate(end.getDate() + Number(duration));
-    end.setHours(23, 59, 999);
+    end.setDate(end.getDate() + dur);
+    end.setHours(23, 59, 59);
 
     const today = new Date();
     if (today < start) return "Not Started";
-    else if (today >= start && today <= end) return "Ongoing";
-    else return "Finished";
+    if (today >= start && today <= end) return "Ongoing";
+    return "Finished";
   };
 
   const getProgressColor = (status) => {
@@ -50,24 +59,33 @@ const MyActivities = () => {
     }
   };
 
-  //
-  const getProgressPercentage = (joinDate, duration) => {
-    const start = new Date(joinDate);
+  const getProgressPercentage = (startDate, duration) => {
+    const start = new Date(startDate);
     const dur = Number(duration);
 
     if (isNaN(start.getTime()) || isNaN(dur)) return 0;
 
     const end = new Date(start);
     end.setDate(end.getDate() + dur);
-    end.setHours(23, 59, 999);
+    end.setHours(23, 59, 59);
 
     const today = new Date();
     if (today < start) return 0;
-    if (today >= end) return 100;
+    if (today > end) return 100;
 
-    const totalTime = end.getTime() - start.getTime();
-    const elapsed = today.getTime() - start.getTime();
+    const totalTime = end - start;
+    const elapsed = today - start;
     return Math.round((elapsed / totalTime) * 100);
+  };
+
+  const getEndDate = (startDate, duration) => {
+    const start = new Date(startDate);
+    const dur = Number(duration);
+    if (isNaN(start.getTime()) || isNaN(dur)) return "Invalid Date";
+
+    const end = new Date(start);
+    end.setDate(end.getDate() + dur);
+    return end.toLocaleDateString();
   };
 
   if (!loading && joinData.length === 0)
@@ -118,27 +136,26 @@ const MyActivities = () => {
                       <span className="font-bold">Duration :</span>{" "}
                       {challenges.duration} Days
                     </p>
+
                     <p className="text-gray-800 font-extrabol">
                       {" "}
-                      <span className="font-bold">Join Date :</span>{" "}
-                      {new Date(challenges.joinDate).toLocaleDateString()}
+                      <span className="font-bold">Start :</span>{" "}
+                      {formatDate(challenges.startDate)}
                     </p>
-
-                    {/* statu */}
 
                     <p className="text-gray-800 font-extrabol">
                       {" "}
                       <span className="font-bold">Status :</span>
-                      {getStatus(challenges.joinDate, challenges.duration)}
+                      {getStatus(challenges.startDate, challenges.duration)}
                     </p>
                     <div className="w-full bg-gray-200 rounded-full h-4 mt-2">
                       <div
                         className={`${getProgressColor(
-                          getStatus(challenges.joinDate, challenges.duration)
+                          getStatus(challenges.startDate, challenges.duration)
                         )} h-4 rounded-full`}
                         style={{
                           width: `${getProgressPercentage(
-                            challenges.joinDate,
+                            challenges.startDate,
                             challenges.duration
                           )}%`,
                         }}
@@ -147,7 +164,7 @@ const MyActivities = () => {
                         progress:{" "}
                         <span className="text-gray-500">
                           {getProgressPercentage(
-                            challenges.joinDate,
+                            challenges.startDate,
                             challenges.duration
                           )}
                           %
