@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import Skeleton from "react-loading-skeleton";
 import SketletonNOt from "../Sketleton/SketletonNOt";
+import { MdHowToVote } from "react-icons/md";
 // import Skeleton from "../Sketleton/Skeleton";
 
 const RecentTips = () => {
@@ -36,35 +37,46 @@ const RecentTips = () => {
           : tips.map((tip) => (
               <div
                 key={tip._id}
-                className="card rounded-md hover:shadow-2xl  bg-base-100 card-xl shadow-sm pb-5"
+                className="card rounded-md hover:shadow-2xl  bg-base-100 card-xl shadow-sm py-2 border-l-5 border-green-800"
               >
-                <h2 className="bg-green-800 py-3 rounded-t-md text-white text-center">
-                  {tip.title}
-                </h2>
-                <div className="px-4 py-3 space-y-3">
-                  <p className="text-center">{tip.content}</p>
-
-                  <div className="flex justify-between items-center border-b border-gray-300">
-                    <p className=" py-1 text-sm flex justify-between">
-                      Category :
-                    </p>
-                    <span className="text-sm">{tip.category}</span>
-                  </div>
-
-                  <div className="border-b border-gray-300 py-1 flex justify-between items-center">
-                    <p className="  text-sm">Auther Name :</p>
-                    <span className="text-sm">{tip.authorName}</span>
-                  </div>
-
-                  <div className="border-b border-gray-300 py-1 flex justify-between items-center">
-                    <p className="  text-sm"> Upvotes :</p>
-                    <span className="text-sm">{tip.upvotes}</span>
-                  </div>
-                  <div className="border-b border-gray-300 py-1 flex justify-between items-center">
-                    <p className="  text-sm"> CreatedAt : </p>
-                    <span className="text-sm">
+                <div className="p-4">
+                  <div className="flex items-center justify-between mb-8 ">
+                    <h2 className="py-1.5 px-2 text-xs rounded-md text-start bg-green-100  w-fit font-semibold">
+                      {tip.category} - Tips
+                      {/* {tip.title} */}
+                    </h2>
+                    <span className="text-sm text-gray-600">
                       {tip.createdAt.slice(0, 10)}
                     </span>
+                  </div>
+
+                  <div className="flex items-center  justify-between">
+                    <div>
+                      <h2 className="mt- text-xl  rounded-md text-start  font-bold">
+                        {tip.title}
+                      </h2>
+                    </div>
+                    <div className="flex items-center">
+                      <MdHowToVote />
+                      <h4 className="text-sm text-gray-600 font-semibold">
+                        {" "}
+                        Vote-{tip.upvotes}
+                      </h4>
+                    </div>
+                  </div>
+
+                  <div className="mt-4">
+                    <p className="text-start text-sm text-gray-600">
+                      {tip.content}
+                    </p>
+
+                    <div>
+                      <h4 className="text-sm font-semibold text-end">
+                        {tip.authorName}
+                      </h4>
+                    </div>
+
+                    <div className="flex justify-between items-center border-b border-gray-300 mt-4 "></div>
                   </div>
                 </div>
               </div>

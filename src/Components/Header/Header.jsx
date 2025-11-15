@@ -7,14 +7,8 @@ import { IoLogOut } from "react-icons/io5";
 import { LuSquareActivity } from "react-icons/lu";
 
 const Header = () => {
-  // const [loading, setLoading] = useState(true);
   const { signOutFunc, user, loading } = useContext(AuthContext);
   const navigate = useNavigate();
-  if (loading) {
-    return (
-      <span className="loading loading-ring loading-md min-h-screen mx-auto flex justify-center"></span>
-    );
-  }
 
   const handlesignOut = () => {
     signOutFunc()

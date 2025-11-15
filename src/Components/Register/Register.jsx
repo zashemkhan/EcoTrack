@@ -21,11 +21,6 @@ const Register = () => {
   const [passwordError, setPasswordError] = useState("");
   const [showPass, setShowPass] = useState(false);
   const [btnLoading, setBtnLoading] = useState(false);
-  // if (loading) {
-  //   return (
-  //     <span className="loading loading-ring loading-md min-h-screen mx-auto flex justify-center"></span>
-  //   );
-  // }
 
   const validatePassword = (password) => {
     const minLength = 6;
@@ -55,7 +50,7 @@ const Register = () => {
     const email = form.email.value;
     const photoURL = form.photoURL.value;
     const password = form.password.value;
-    console.log(displayName, email, password, photoURL);
+
 
     setBtnLoading(true);
     const validationMesssage = validatePassword(password);

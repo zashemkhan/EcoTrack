@@ -11,7 +11,6 @@ const ChallengesCard = ({ challenges }) => {
     imageUrl,
     createdBy,
   } = challenges;
-  console.log(challenges);
   return (
     <div
       className="card bg-base-100 hover:shadow-2xl shadow-xl

@@ -5,7 +5,6 @@ import Skeleton from "../Sketleton/Skeleton";
 const ActiveChallenge = () => {
   const [activeData, setActiveData] = useState([]);
   const [loading, setLoading] = useState(true);
-  console.log(activeData);
   useEffect(() => {
     fetch("https://eco-track-teal.vercel.app/api/activechallenges")
       .then((res) => res.json())

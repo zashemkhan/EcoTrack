@@ -3,11 +3,13 @@ import ChallengesCard from "./ChallengesCard";
 import Skeleton from "../Sketleton/Skeleton";
 
 const categoriesList = [
-  "Waste Reduction",
-  "Energy Saving",
+  "Green Living",
+  "Energy Efficiency",
   "Water Conservation",
   "Sustainable Transport",
-  "Green Living",
+  "Community Action",
+  "Environment",
+  "Mental Wellbeing",
 ];
 const Challenges = () => {
   const [challengesData, setChallengesData] = useState([]);

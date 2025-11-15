@@ -6,6 +6,7 @@ import LiveStatics from "../../Components/CommunityTools/LiveStatics";
 import GoGReen from "../../Components/GoGReen/GoGReen";
 import HowWorks from "../../Components/GoGReen/HowWorks";
 
+
 const Home = () => {
   return (
     <div className="min-h-screen  ">

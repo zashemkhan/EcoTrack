@@ -17,13 +17,12 @@ const ChallangeDetails = () => {
   const onDelete = location.state?.onDelete;
 
   const fetchchallengeDetails = async () => {
-    setLoading(true);
+    // setLoading(true);
     try {
       const res = await fetch(
         `https://eco-track-teal.vercel.app/api/challenges/${id}`
       );
       const data = await res.json();
-      console.log("challenge data", data);
       setDetails(data);
       localStorage.getItem(`challenge-${id}`, JSON.stringify(data));
       setLoading(false);
@@ -139,6 +138,7 @@ const ChallangeDetails = () => {
     return (
       <p className="text-center mt-10">
         <SketletonDetail></SketletonDetail>
+
       </p>
     );
 
@@ -154,93 +154,94 @@ const ChallangeDetails = () => {
     endDate,
     imageUrl,
   } = details;
-  console.log(details);
 
   return (
-    <div className=" min-h-screen flex justify-center items-center mx-auto p-4 md:p-6 lg:p-8">
-      <div className="card bg-base-100 shadow-xl border border-gray-200 rounded-2xl overflow-hidden">
-        <div className="flex flex-col md:flex-row gap-8 p-6 md:p-8">
-          <div className="shrink-0 w-full md:w-1/2">
-            <img
-              src={imageUrl}
-              alt={title}
-              className="w-full h-full object-cover rounded-xl shadow-md"
-            />
-          </div>
-
-          <div className="flex flex-col justify-center space-y-4 w-full md:w-1/2">
-            <h1 className="text-3xl md:text-4xl font-bold text-gray-800">
-              {title}
-            </h1>
-
-            <div className="badge badge-lg badge-outline text-gray-600 border-green-600 font-medium">
-              {category}
+    <div className="max-w-11/12 mx-auto ">
+      <div className=" flex justify-center items-center mx-auto p-4 md:p-6 lg:p-8 min-h-screen">
+        <div className="card bg-base-100 shadow-xl border border-gray-200 rounded-2xl overflow-hidden w-full">
+          <div className="flex flex-col md:flex-row gap-8 p-6 md:p-8">
+            <div className="shrink-0 w-full md:w-1/2">
+              <img
+                src={imageUrl}
+                alt={title}
+                className="w-full lg:h-[500px] h-[400px] object-cover rounded-xl shadow-md"
+              />
             </div>
 
-            <p className="text-gray-600 leading-relaxed text-base md:text-lg">
-              {description}
-            </p>
-            <div className="flex justify-between items-center border-b border-gray-300">
-              <p className=" py-1 text-sm flex justify-between">
-                Impact Metric :
+            <div className="flex flex-col justify-center space-y-4 w-full md:w-1/2">
+              <h1 className="text-3xl md:text-4xl font-bold text-gray-800">
+                {title}
+              </h1>
+
+              <div className="badge badge-lg badge-outline text-gray-600 border-green-600 font-medium">
+                {category}
+              </div>
+
+              <p className="text-gray-600 leading-relaxed text-base md:text-lg">
+                {description}
               </p>
-              <span className="text-sm">{impactMetric}</span>
-            </div>
+              <div className="flex justify-between items-center border-b border-gray-300">
+                <p className=" py-1 text-sm flex justify-between">
+                  Impact Metric :
+                </p>
+                <span className="text-sm">{impactMetric}</span>
+              </div>
 
-            <div className="border-b border-gray-300 py-1 flex justify-between items-center">
-              <p className="  text-sm">Target :</p>
-              <span className="text-sm">{target}</span>
-            </div>
+              <div className="border-b border-gray-300 py-1 flex justify-between items-center">
+                <p className="  text-sm">Target :</p>
+                <span className="text-sm">{target}</span>
+              </div>
 
-            <div className="flex justify-between items-center border-b border-gray-300">
-              <p className=" py-1 text-sm flex justify-between">Duration :</p>
-              <span className="text-sm">{duration}</span>
-            </div>
+              <div className="flex justify-between items-center border-b border-gray-300">
+                <p className=" py-1 text-sm flex justify-between">Duration :</p>
+                <span className="text-sm">{duration}</span>
+              </div>
 
-            <div className="border-b border-gray-300 py-1 flex justify-between items-center">
-              <p className="  text-sm"> Participants :</p>
-              <span className="text-sm">{participants}</span>
-            </div>
-            <div className="border-b border-gray-300 py-1 flex justify-between items-center">
-              <p className="  text-sm"> Start Date : </p>
-              <span className="text-sm">
-                {new Date(startDate).toLocaleDateString()}
-              </span>
-            </div>
-            <div className="border-b border-gray-300 py-1 flex justify-between items-center">
-              <p className="  text-sm"> End Date : </p>
-              <span className="text-sm">
-                {" "}
-                {new Date(endDate).toLocaleDateString()}
-              </span>
-            </div>
+              <div className="border-b border-gray-300 py-1 flex justify-between items-center">
+                <p className="  text-sm"> Participants :</p>
+                <span className="text-sm">{participants}</span>
+              </div>
+              <div className="border-b border-gray-300 py-1 flex justify-between items-center">
+                <p className="  text-sm"> Start Date : </p>
+                <span className="text-sm">
+                  {new Date(startDate).toLocaleDateString()}
+                </span>
+              </div>
+              <div className="border-b border-gray-300 py-1 flex justify-between items-center">
+                <p className="  text-sm"> End Date : </p>
+                <span className="text-sm">
+                  {" "}
+                  {new Date(endDate).toLocaleDateString()}
+                </span>
+              </div>
 
-            <div className="flex items-center gap-3 mt-6">
-              <button
-                onClick={handleJoinChallenge}
-                className="btn btn-primary border-none bg-linear-to-r from-green-600 to-green-700 text-white mt-3 hover:to-emerald-900"
-              >
-                Join Challenge
-              </button>
+              <div className="flex items-center gap-3 mt-6">
+                <button
+                  onClick={handleJoinChallenge}
+                  className="btn btn-primary border-none bg-linear-to-r from-green-600 to-green-700 text-white mt-3 hover:to-emerald-900"
+                >
+                  Join Challenge
+                </button>
 
-              {user?.email === details?.createdBy && (
-                <>
-                  <Link to={`/UpdateChallenges/${details._id}`}>
+                {user?.email === details?.createdBy && (
+                  <>
+                    <Link to={`/UpdateChallenges/${details._id}`}>
+                      <button
+                        onClick={handleUpdate}
+                        className="btn btn-primary border-none bg-linear-to-r from-green-600 to-green-700 text-white mt-3 hover:to-emerald-900"
+                      >
+                        Update
+                      </button>
+                    </Link>
                     <button
-                      onClick={handleUpdate}
-                      className="btn btn-primary border-none bg-linear-to-r from-green-600 to-green-700 text-white mt-3 hover:to-emerald-900"
+                      onClick={handleDelete}
+                      className="btn btn-outline rounded-md  bg-linear-to-r from-green-600 to-green-700 text-white mt-3 hover:to-emerald-900"
                     >
-                      Update
+                      Delete
                     </button>
-                  </Link>
-                  <button
-                    onClick={handleDelete}
-                    className="btn btn-outline rounded-md  bg-linear-to-r from-green-600 to-green-700 text-white mt-3 hover:to-emerald-900"
-                  >
-                    Delete
-                  </button>
-                </>
-              )}
+                  </>
+                )}
+              </div>
             </div>
           </div>
         </div>

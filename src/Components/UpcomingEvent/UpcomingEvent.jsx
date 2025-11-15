@@ -25,31 +25,34 @@ const UpcomingEvent = () => {
           Be Part of the change - Join Us!
         </p>
       </div>
-      <div className="grid grid-cols-1 gap-5">
+      <div className="grid lg:grid-cols-2 grid-cols-1 gap-5 ">
         {loading
           ? Array(8)
               .fill(0)
               .map((_, i) => <SketletonEvent key={i}></SketletonEvent>)
           : events.map((event) => (
-              <div
-                key={event._id}
-                className="card bg-base-100 shadow-sm border rounded-md p-4 hover:shadow-md transition-all"
-              >
-                <h3 className="text-lg font-semibold text-green-700 mb-1">
-                  {event.title}
-                </h3>
-                <p className="text-sm text-gray-600 mb-2">
-                  {event.description}
-                </p>
-                <div className=" text-sm text-gray-500">
-                  <span>📅 {new Date(event.date).toLocaleDateString()}</span>
-                </div>
-                <div className="mt-3 text-sm flex items-center justify-between">
-                  <span>
-                    👥 {event.currentParticipants} / {event.maxParticipants}{" "}
-                    Joined
-                  </span>
-                  <span>📍 {event.location}</span>
+              <div className="card bg-base-100 image-full shadow-sm">
+                <div>
+                  <figure className="object-cover overflow-hidden">
+                    <img
+                      className="object-cover w-full h-[300px]"
+                      src={event.img}
+                      alt={event.title}
+                    />
+                  </figure>
+                  <div className="card-body">
+                    <h2 className="card-title font-bold text-xl">{event.title}</h2>
+                    <p>{event.description}</p>
+                    <div className="mt-3 text-sm flex flex-col text-end ">
+                      <div className="mt-1">
+                        <p>📍 {event.location}</p>
+                      </div>
+                      <span>
+                        👥 {event.currentParticipants} / {event.maxParticipants}{" "}
+                        Joined
+                      </span>
+                    </div>
+                  </div>
                 </div>
               </div>
             ))}

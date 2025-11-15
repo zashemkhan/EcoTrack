@@ -1,17 +1,13 @@
-import React, { use, useContext, useEffect, useState } from "react";
+import  {  useContext, useEffect, useState } from "react";
 import { AuthContext } from "../../Contexts/AuthContext";
 import { toast } from "react-toastify";
 import { useNavigate } from "react-router";
 
 const CreateChallenge = () => {
-  const { user, loading } = useContext(AuthContext);
+  const { user } = useContext(AuthContext);
   const navigate = useNavigate();
   const [loader, setLoader] = useState(false);
-  if (loading) {
-    return (
-      <span className="loading loading-ring loading-md min-h-screen mx-auto flex justify-center"></span>
-    );
-  }
+ 
   const handleSubmit = (e) => {
     setLoader(true);
     e.preventDefault();
@@ -82,7 +78,6 @@ const CreateChallenge = () => {
                 placeholder="Type Your challange name"
               />
             </div>
-            {/* Category Dropdown */}
             <div>
               <label className="label font-medium">Category</label>
               <select
