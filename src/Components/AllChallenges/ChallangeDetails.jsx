@@ -17,7 +17,6 @@ const ChallangeDetails = () => {
   const onDelete = location.state?.onDelete;
 
   const fetchchallengeDetails = async () => {
-    // setLoading(true);
     try {
       const res = await fetch(
         `https://eco-track-teal.vercel.app/api/challenges/${id}`
@@ -138,7 +137,6 @@ const ChallangeDetails = () => {
     return (
       <p className="text-center mt-10">
         <SketletonDetail></SketletonDetail>
-
       </p>
     );
 
@@ -154,6 +152,11 @@ const ChallangeDetails = () => {
     endDate,
     imageUrl,
   } = details;
+
+  const start = new Date(startDate);
+  const end = new Date(start);
+  end.setDate(start.getDate() + Number(duration));
+  details.endDate = details.endDate ? new Date(details.endDate) : end;
 
   return (
     <div className="max-w-11/12 mx-auto ">
@@ -211,7 +214,7 @@ const ChallangeDetails = () => {
                 <p className="  text-sm"> End Date : </p>
                 <span className="text-sm">
                   {" "}
-                  {new Date(endDate).toLocaleDateString()}
+                  {new Date(details.endDate).toLocaleDateString()}
                 </span>
               </div>
 

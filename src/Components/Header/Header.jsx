@@ -34,15 +34,21 @@ const Header = () => {
       >
         <li>Challenges</li>
       </NavLink>
-      {user && (
-        <>
-          <NavLink
-            className={({ isActive }) => (isActive ? "border-b" : "text-white")}
-            to="/add"
-          >
-            <li>Create A Challegne</li>
-          </NavLink>
-        </>
+      {loading ? (
+        <span className="loading loading-ring loading-md text-green-600  "></span>
+      ) : (
+        user && (
+          <>
+            <NavLink
+              className={({ isActive }) =>
+                isActive ? "border-b" : "text-white"
+              }
+              to="/add"
+            >
+              <li>Create A Challegne</li>
+            </NavLink>
+          </>
+        )
       )}
     </>
   );
@@ -89,7 +95,9 @@ const Header = () => {
           <ul className="menu menu-horizontal px-1 gap-10">{links}</ul>
         </div>
         <div className="navbar-end gap-5">
-          {user ? (
+          {loading ? (
+            <span className="loading loading-ring loading-md text-green-600  "></span>
+          ) : user ? (
             <div className="dropdown dropdown-end z-50">
               <div
                 tabIndex={0}

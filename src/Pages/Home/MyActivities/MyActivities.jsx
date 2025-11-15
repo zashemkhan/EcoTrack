@@ -90,8 +90,8 @@ const MyActivities = () => {
 
   if (!loading && joinData.length === 0)
     return (
-      <p className="text-center text-gray-500 text-lg min-h-screen">
-        You haven't joined any challenges yet.
+      <p className="text-center text-gray-500 text-lg py-10 ">
+        You haven't joined any challenges yet !!
       </p>
     );
   // };

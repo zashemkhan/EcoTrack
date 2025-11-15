@@ -22,7 +22,7 @@ const UpcomingEvent = () => {
           Upcoming event
         </h2>
         <p className="text-sm lg:text-[18px] text-gray-500">
-          Be Part of the change - Join Us!
+          Be The Change You Want tTo See - Get Involved!
         </p>
       </div>
       <div className="grid lg:grid-cols-2 grid-cols-1 gap-5 ">
@@ -30,8 +30,8 @@ const UpcomingEvent = () => {
           ? Array(8)
               .fill(0)
               .map((_, i) => <SketletonEvent key={i}></SketletonEvent>)
-          : events.map((event) => (
-              <div className="card bg-base-100 image-full shadow-sm">
+          : events.map((event, i) => (
+              <div key={i} className="card bg-base-100 image-full shadow-sm">
                 <div>
                   <figure className="object-cover overflow-hidden">
                     <img
@@ -41,7 +41,9 @@ const UpcomingEvent = () => {
                     />
                   </figure>
                   <div className="card-body">
-                    <h2 className="card-title font-bold text-xl">{event.title}</h2>
+                    <h2 className="card-title font-bold text-xl">
+                      {event.title}
+                    </h2>
                     <p>{event.description}</p>
                     <div className="mt-3 text-sm flex flex-col text-end ">
                       <div className="mt-1">
